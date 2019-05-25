@@ -1,6 +1,7 @@
 # TODO DOCSTRING ME
 # TODO BASECLASS
 
+import numpy as np
 import tensorflow as tf
 
 
@@ -52,19 +53,7 @@ class ResNet:
         with tf.Session() as sess:
             feature_map = sess.run(output_tensor, feed_dict={input_tensor: input_data})
 
+        # This is needed to get rid of the batch and match the image format
+        feature_map = np.swapaxes(feature_map, 1, 2).squeeze(axis=0)
+
         return feature_map
-
-
-def run_inference_for_single_image(image, graph):
-    with graph.as_default():
-        with tf.Session() as sess:
-            # Get handles to input and output tensors
-            last_feature_layer = tf.get_default_graph().get_tensor_by_name(
-                    'FirstStageFeatureExtractor/resnet_v1_101/resnet_v1_101/block3/unit_21/bottleneck_v1/add:0')
-
-            image_tensor = tf.get_default_graph().get_tensor_by_name('image_tensor:0')
-
-            # Run inference
-            output_dict = sess.run(last_feature_layer, feed_dict={image_tensor: image})
-
-    return output_dict

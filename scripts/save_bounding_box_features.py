@@ -22,28 +22,38 @@ def save_bounding_box_features(path_to_features, path_to_images, output_path, pa
     # Loop through files
     for file in tqdm.tqdm(list(path_to_features.glob('*'))):
         base_name = file.stem
-        feature_map = np.load(file).squeeze(axis=0) # TODO Remove this
-        feature_map = np.swapaxes(feature_map, 0, 1)  # This is needed since these axis are switched compared
 
-        feature_map_size = feature_map.shape[:2]
+        feature_map = np.load(file)
 
         # Get needed labels
         labels_per_image = labels.loc[[base_name], [TYPE, Y_MIN, Y_MAX, X_MIN, X_MAX]]
         image_size = Image.open(path_to_images / (base_name + '.png')).size
 
         for idx, label in enumerate(labels_per_image.iterrows()):
-            label = label[1] # The first entry is the index of the dataframe, which we do not need
-            bbox_center_orig_images = ((label[X_MIN] + label[X_MAX]) / 2,
-                                       (label[Y_MIN] + label[Y_MAX]) / 2)
+            label = label[1]  # The first entry is the index of the dataframe, which we do not need
+            bbox_feature = _get_bbox_feature(image_size=image_size,
+                                             feature_map=feature_map,
+                                             x_min=label[X_MIN],
+                                             x_max=label[X_MAX],
+                                             y_min=label[Y_MIN],
+                                             y_max=label[Y_MAX])
 
-            bbox_center_relative = [center / size for center, size in zip(bbox_center_orig_images, image_size)]
-
-            bbox_center_feature_map = [int(relative_position * size)
-                                       for size, relative_position
-                                       in zip(feature_map_size, bbox_center_relative)]
-            bbox_feature = feature_map[bbox_center_feature_map[0], bbox_center_feature_map[1], :]
             file_name = output_path / (base_name + '_' + str(idx))
             np.save(file_name, bbox_feature)
+
+
+def _get_bbox_feature(image_size, feature_map, x_min, x_max, y_min, y_max):
+    feature_map_size = feature_map.shape[:2]
+
+    bbox_center_orig_images = ((x_min + x_max) / 2,
+                               (y_min + y_max) / 2)
+    bbox_center_relative = [center / size for center, size in zip(bbox_center_orig_images, image_size)]
+
+    bbox_center_feature_map = [int(relative_position * size)
+                               for size, relative_position
+                               in zip(feature_map_size, bbox_center_relative)]
+    bbox_feature = feature_map[bbox_center_feature_map[0], bbox_center_feature_map[1], :]
+    return bbox_feature
 
 
 def _main():
