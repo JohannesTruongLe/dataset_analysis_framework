@@ -1,15 +1,8 @@
 # TODO DOCSTRING ME
 # TODO BASECLASS
-import urllib.request
-import tarfile
-import os
-import tensorflow as tf
-import numpy as np
-from PIL import Image
-from pathlib import Path
-import tqdm
 
-from tensorflow.keras.models import Model
+import tensorflow as tf
+
 
 PATH_TO_FROZEN_GRAPH = 'C:/workspace/data/weights/faster_rcnn_resnet101_kitti_2018_01_28/frozen_inference_graph.pb' #TODO Config
 INPUT_LAYER = 'import/image_tensor:0'
@@ -75,17 +68,3 @@ def run_inference_for_single_image(image, graph):
             output_dict = sess.run(last_feature_layer, feed_dict={image_tensor: image})
 
     return output_dict
-
-
-# TODO Delete this
-if __name__ == '__main__':
-    # Check if this is working
-    model = ResNet()
-    for file in tqdm.tqdm(list(Path('C:/workspace/data/KITTI/image_2/training/image_2').glob('*'))):
-        img = Image.open(file)
-        image_np = np.array(img)
-        image_np_expanded = np.expand_dims(image_np, axis=0)
-        out = model.retrieve_tensor(input_data=image_np_expanded)
-        print(out.shape)
-
-        # np.save(Path("C:/workspace/KITTI_analysis/data/meta/feature_maps_complete")/file.stem, out)
