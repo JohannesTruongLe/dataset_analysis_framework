@@ -5,13 +5,13 @@ from pathlib import Path
 import tqdm
 import numpy as np
 import matplotlib.pyplot as plt
-from sklearn.manifold import TSNE
+from lib.clustering.tsne import TSNE
 import pandas as pd
 
 # TODO Config
 # TODO Argparse
 
-N_SAMPLES = 1500
+N_SAMPLES = 1000
 PATH_TO_FEATURES = Path('C:/workspace/data/meta/box_features')
 PATH_TO_LABELS = Path('C:/workspace/data/meta/data.pickle')
 CLASSES = 'Car Van Truck Pedestrian Person_sitting Cyclist Tram'.split()
@@ -37,7 +37,7 @@ def _load_data_from_directory(path, n_samples=None):
     for path_to_data in tqdm.tqdm(list(path.glob('*'))[:n_samples]):
         data.append(np.load(path_to_data))
 
-    return data
+    return np.array(data)
 
 
 def _plot(type_container, embedded_space, class_color_dict):
@@ -53,7 +53,12 @@ def _main():
 
     type_container = pd.read_pickle(str(PATH_TO_LABELS))['type'][:N_SAMPLES]
     data = _load_data_from_directory(PATH_TO_FEATURES, n_samples=N_SAMPLES)
-    embedded_space = TSNE(verbose=5).fit_transform(data)
+
+    # Normalize data
+    data -= np.mean(data)
+    data /= np.std(data)
+
+    embedded_space = TSNE(n_iter=100).fit(data)
 
     _plot(type_container=type_container,
           embedded_space=embedded_space,
