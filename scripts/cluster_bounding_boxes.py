@@ -11,11 +11,10 @@ import pandas as pd
 # TODO Config
 # TODO Argparse
 
-N_SAMPLES = 1000
-PATH_TO_FEATURES = Path('C:/workspace/data/meta/box_features')
+N_SAMPLES = 21
+PATH_TO_FEATURES = Path('C:/workspace/data/meta/box_features_trial')
 PATH_TO_LABELS = Path('C:/workspace/data/meta/data.pickle')
-CLASSES = 'Car Van Truck Pedestrian Person_sitting Cyclist Tram'.split()
-COLORS = 'b g r c m y'.split()
+
 
 CLASS_COLOR_DICT = {
     'Car': 'b',
@@ -58,8 +57,7 @@ def _main():
     data -= np.mean(data)
     data /= np.std(data)
 
-    embedded_space = TSNE(n_iter=100).fit(data)
-
+    embedded_space = TSNE(n_iter=1000).fit(data)
     _plot(type_container=type_container,
           embedded_space=embedded_space,
           class_color_dict=CLASS_COLOR_DICT)

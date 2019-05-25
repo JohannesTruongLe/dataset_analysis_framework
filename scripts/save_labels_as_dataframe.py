@@ -11,7 +11,7 @@ from lib.dataloader.KITTI import KITTIDataLoader
 # TODO Argparse
 OUTPUT_PATH = Path("C:/workspace/data/meta/data.pickle")
 INPUT_PATH = Path('C:/workspace/data/KITTI/label_2/training/label_2')
-N_SAMPLES = 100
+N_SAMPLES = None
 
 
 def save_labels_as_dataframe(output_path, dataloader, n_samples=None):

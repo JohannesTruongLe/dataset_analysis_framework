@@ -9,7 +9,7 @@ from sklearn.neighbors import NearestNeighbors
 
 class TSNE: # TODO BaseClass me
 
-    def __init__(self, seed=42, n_components=2, perplexity=15, n_iter=100, learning_rate=0.2):
+    def __init__(self, seed=42, n_components=2, perplexity=5, n_iter=100, learning_rate=0.2):
         self._random_state = np.random.RandomState(seed)
         self._n_components = n_components
         self._perplexity = perplexity

@@ -73,10 +73,14 @@ class KITTIDataLoader: # TODO BaseClass me
                                    desc="Load from directory",
                                    total=n_samples):
             labels_from_one_file = pd.read_csv(file, index_col=None, header=None, names=KITTI_COLS, delimiter=' ')
-            # Set file name as index #
-            labels_from_one_file.insert(loc=0, column='name', value=[file.stem] * labels_from_one_file.shape[0])
+
+            # Set file name + label position in file as index
+            base_name = file.stem
+            sample_index = [ base_name + '_' +str(label_idx) for label_idx in range(labels_from_one_file.shape[0])]
+            labels_from_one_file.insert(loc=0, column='name', value=sample_index)
             labels_from_one_file.set_index('name', inplace=True)
 
+            # Break if number of needed samples are reached (if n_samples is set)
             if break_flag and idx == (n_samples + 1):
                 break
             yield labels_from_one_file

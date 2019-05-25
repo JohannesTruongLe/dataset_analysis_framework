@@ -7,7 +7,7 @@ import tensorflow as tf
 
 PATH_TO_FROZEN_GRAPH = 'C:/workspace/data/weights/faster_rcnn_resnet101_kitti_2018_01_28/frozen_inference_graph.pb' #TODO Config
 INPUT_LAYER = 'import/image_tensor:0'
-OUTPUT_LAYER = 'import/FirstStageFeatureExtractor/resnet_v1_101/resnet_v1_101/block3/unit_23/bottleneck_v1/Relu:0'
+OUTPUT_LAYER = 'import/FirstStageFeatureExtractor/resnet_v1_101/resnet_v1_101/block3/unit_21/bottleneck_v1/add:0'
 
 class ResNet:
 
