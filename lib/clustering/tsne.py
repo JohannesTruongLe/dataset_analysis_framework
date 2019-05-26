@@ -9,12 +9,14 @@ from sklearn.neighbors import NearestNeighbors
 
 class TSNE: # TODO BaseClass me
 
-    def __init__(self, seed=42, n_components=2, perplexity=5, n_iter=100, learning_rate=0.2):
+    def __init__(self, seed=42, n_components=2, perplexity=10, n_iter=200, learning_rate=0.2):
         self._random_state = np.random.RandomState(seed)
         self._n_components = n_components
         self._perplexity = perplexity
         self._n_iter = n_iter
         self._learning_rate = learning_rate
+        self._fine_tune_share = 0.1
+        self._fine_tune_epoch = int(self._n_iter*(1-self._fine_tune_share))
 
     def fit(self, data):
 
@@ -50,6 +52,8 @@ class TSNE: # TODO BaseClass me
                                                       neighbour_distances=neighbour_distances,
                                                       neighbour_idx=neighbour_idx_table)
 
+        learning_rate = self._learning_rate
+
         for iter_idx in tqdm.tqdm(range(self._n_iter)):
             for first_idx in range(data.shape[0]):
                 sum_value = 0
@@ -64,7 +68,7 @@ class TSNE: # TODO BaseClass me
                              (asym_prop_old_space[first_idx, second_idx] - asym_prob_new_space[first_idx, second_idx] +
                               asym_prop_old_space[second_idx, first_idx] - asym_prob_new_space[second_idx, first_idx]))
 
-                data[first_idx] -= self._learning_rate * sum_value
+                data[first_idx] -= learning_rate * sum_value
 
             if iter_idx % 5 == 0:
                 neighbour_distances, neighbour_idx_table = \
@@ -73,6 +77,9 @@ class TSNE: # TODO BaseClass me
                 asym_prob_new_space = compute_asym_prob_table(similarity_function=compute_gaussian_similarity,
                                                               neighbour_distances=neighbour_distances,
                                                               neighbour_idx=neighbour_idx_table)
+
+            if iter_idx == self._fine_tune_epoch:
+                learning_rate *= 0.1
 
         data -= np.mean(data)
         data /= np.std(data)
