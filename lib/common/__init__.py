@@ -1,2 +1,2 @@
-"""Common files shared across the whole lib."""
+"""Common base classes shared across the whole lib."""
 from .mix_ins import YAMLBuildMixIn

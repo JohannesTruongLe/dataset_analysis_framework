@@ -5,7 +5,7 @@ import tqdm
 import numpy as np
 import pandas as pd
 
-from lib.clustering.tsne import TSNE
+from lib.manifold.tsne import TSNE
 from lib.config import Config
 from lib.util import string_to_bool, save_scatter_plot_with_classes
 
@@ -34,7 +34,7 @@ def _parse_args():
     return args
 
 
-def load_data_from_directory(feature_path, type_container=None):
+def _load_data_from_directory(feature_path, type_container=None):
     """Load data from directory and prepare.
 
     Args:
@@ -76,7 +76,7 @@ def _save_embedded_features(feature_path, label_path, output_path, output_plot_p
 
     """
     type_container = pd.read_pickle(str(label_path))['type']
-    data, types, _ = load_data_from_directory(feature_path, type_container)
+    data, types, _ = _load_data_from_directory(feature_path, type_container)
 
     # Normalize data
     data -= np.mean(data)
