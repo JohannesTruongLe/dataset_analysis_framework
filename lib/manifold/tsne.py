@@ -15,13 +15,26 @@ class TSNE(ManifoldBase):
 
     """
 
-    def __init__(self, seed=42, n_components=2, perplexity=10, n_iter=200, learning_rate=0.2):
+    def __init__(self, seed=42, n_components=2, perplexity=10, n_iter=200, learning_rate=0.2, fine_tune_share=0.1):
+        """Init.
+
+        Args:
+            seed (int): Random seed to ensure reproducibility.
+            n_components (int): Number of components of output space.
+            perplexity (int): Number of nearest neighbours considered during optimization.
+            n_iter (int): Number of iterations.
+            learning_rate (float): Learning rate.
+            fine_tune_share (float): Share of finetuning epchs. Example: If fine_tune_share is 0.1 and n_iter is 100,
+                than 100*(1-fine_tune_share)= 90 are trained with the original learning rate, the rest 0.1*100=10 epochs
+                are trained with 0.1*learning_rate
+
+        """                                                                                                    
         self._random_state = np.random.RandomState(seed)
         self._n_components = n_components
         self._perplexity = perplexity
         self._n_iter = n_iter
         self._learning_rate = learning_rate
-        self._fine_tune_share = 0.1
+        self._fine_tune_share = fine_tune_share
         self._fine_tune_epoch = int(self._n_iter*(1-self._fine_tune_share))
 
     def fit(self, data):
