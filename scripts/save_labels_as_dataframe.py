@@ -2,7 +2,7 @@
 import argparse
 
 from lib.dataloader.KITTI import KITTIDataLoader
-from lib.util import configure_logging_verbosity
+from lib.util import configure_logging_verbosity, string_to_bool
 
 
 def _parse_args():
@@ -17,33 +17,35 @@ def _parse_args():
     parser.add_argument('--verbose',
                         help="Increase output verbosity.",
                         required=False,
-                        default=False,
-                        action='store_true')
+                        default='False',
+                        type=str)
 
     args = parser.parse_args()
+    args.verbose = string_to_bool(args.verbose)
+
     return args
 
 
-def save_labels_as_dataframe(config_path, verbose=False):
+def save_labels_as_dataframe(dataloader_config, verbose=False):
     """Save labels as dataframe.
 
     This function just wraps the dataloader.base_class.store_labels() method. Specify the place to store the labels in
     the dataloader config.
 
     Args:
-        config_path (str): Path to dataloader config.
+        dataloader_config (str): Path to dataloader config.
         verbose (bool): Whether to turn of verbose or not.
 
     """
     configure_logging_verbosity(verbose=verbose)
-    dataloader = KITTIDataLoader.build_from_yaml(config_path=config_path)  # TODO factory?
+    dataloader = KITTIDataLoader.build_from_yaml(config_path=dataloader_config)  # TODO factory?
     dataloader.store_labels()
 
 
 def _main():
     """Main script."""
     args = _parse_args()
-    save_labels_as_dataframe(config_path=args.config,
+    save_labels_as_dataframe(dataloader_config=args.config,
                              verbose=args.verbose)
 
 

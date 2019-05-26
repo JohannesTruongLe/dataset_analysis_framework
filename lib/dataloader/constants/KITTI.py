@@ -14,7 +14,7 @@ SIZE_Y = 'size_y'
 SIZE_Z = 'size_z'
 LOCATION_X = 'location_x'
 LOCATION_Y = 'location_y'
-LOCATION_Z ='location_z'
+LOCATION_Z = 'location_z'
 ROTATION_Y = 'rotation_y'
 
 # List of cols in KITTI # TODO make me class attribute
@@ -33,3 +33,14 @@ KITTI_COLS = [TYPE,
               LOCATION_Y,
               LOCATION_Z,
               ROTATION_Y]
+
+# KITTI Class types
+CAR = 'Car'
+VAN = 'Van'
+TRUCK = 'Truck'
+PEDESTRIAN = 'Pedestrian'
+PERSON_SITTING = 'Person_sitting'
+CYCLIST = 'Cyclist'
+TRAM = 'Tram'
+
+CLASS_LIST = [CAR, VAN, TRUCK, PEDESTRIAN, PERSON_SITTING, CYCLIST, TRAM]

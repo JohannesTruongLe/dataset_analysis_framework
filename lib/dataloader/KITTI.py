@@ -2,7 +2,7 @@
 import logging
 import pandas as pd
 
-from ..config.KITTI import KITTIConfig
+from ..config import KITTIConfig
 from ..dataloader.base_class import DataLoaderBase
 from ..dataloader import KITTI_COLS
 
