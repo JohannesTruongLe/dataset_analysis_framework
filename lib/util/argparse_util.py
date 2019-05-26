@@ -24,3 +24,32 @@ def string_to_bool(source):
         return False
     else:
         raise argparse.ArgumentTypeError('Boolean value expected.')
+
+
+def default_config_parse(default_config_path):
+    """Parse inline commands.
+
+    Args:
+        default_config_path (str): Path to default config.
+
+    Returns:
+        argparse.Namespace: Container holding
+            config (dict): Dictionary holding configs
+            verbose (bool): Bool value, which can be used for setting verbosity
+
+    """
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--config',
+                        help="Path to config file.",
+                        type=str,
+                        default=default_config_path)
+    parser.add_argument('--verbose',
+                        help="Increase output verbosity.",
+                        required=False,
+                        default='False',
+                        type=str)
+
+    args = parser.parse_args()
+    args.verbose = string_to_bool(args.verbose)
+
+    return args

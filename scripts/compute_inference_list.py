@@ -1,36 +1,10 @@
 """Script to compute list to perform inference on.""" # TODO explain better pls
-import argparse
-
 import numpy as np
 import pandas as pd
 
 from lib.config.general_config import Config
 from lib.dataloader.constants import TYPE, CLASS_LIST #TODO Factory for CLass list?
-from lib.util import string_to_bool, configure_logging_verbosity
-
-
-def _parse_args():
-    """Parse inline commands.
-
-    Returns:
-        argparse.Namespace: For details type compute_inference_list.py --help into terminal.
-
-    """
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--config',
-                        help="Path to config file.",
-                        type=str,
-                        default='settings/scripts/compute_inference_list.yaml')
-    parser.add_argument('--verbose',
-                        help="Increase output verbosity.",
-                        required=False,
-                        default='False',
-                        type=str)
-
-    args = parser.parse_args()
-    args.verbose = string_to_bool(args.verbose)
-
-    return args
+from lib.util import configure_logging_verbosity, default_config_parse
 
 
 def compute_inference_list(label_path, output_path, seed=42, verbose=False):
@@ -70,9 +44,9 @@ def compute_inference_list(label_path, output_path, seed=42, verbose=False):
 
 def _main():
     """Main script."""
-    args = _parse_args()
+    args = default_config_parse(default_config_path='settings/scripts/compute_inference_list.yaml')
+    configure_logging_verbosity(verbose=args.verbose)
     config = Config.build_from_yaml(args.config)
-
     compute_inference_list(**config.config,
                            verbose=args.verbose)
 

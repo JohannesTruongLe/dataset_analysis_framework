@@ -1,37 +1,11 @@
 # TODO DOCSTRING ME
-import argparse
-
 import tqdm
 import numpy as np
 import pandas as pd
 
 from lib.manifold.tsne import TSNE
 from lib.config import Config
-from lib.util import string_to_bool, save_scatter_plot_with_classes
-
-
-def _parse_args():
-    """Parse inline commands.
-
-    Returns:
-        argparse.Namespace: For details type compute_embedded_space.py --help into terminal.
-
-    """
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--config',
-                        help="Path to config file.",
-                        type=str,
-                        default='settings/scripts/compute_embedded_space.yaml')
-    parser.add_argument('--verbose',
-                        help="Increase output verbosity.",
-                        required=False,
-                        default='False',
-                        type=str)
-
-    args = parser.parse_args()
-    args.verbose = string_to_bool(args.verbose)
-
-    return args
+from lib.util import save_scatter_plot_with_classes, configure_logging_verbosity, default_config_parse
 
 
 def _load_data_from_directory(feature_path, type_container=None):
@@ -105,7 +79,8 @@ def _save_embedded_features(feature_path, label_path, output_path, output_plot_p
 
 def _main():
     """Main script."""
-    args = _parse_args()
+    args = default_config_parse(default_config_path='settings/scripts/compute_embedded_space.yaml')
+    configure_logging_verbosity(verbose=args.verbose)
     config = Config.build_from_yaml(args.config)
     _save_embedded_features(**config.config)
 

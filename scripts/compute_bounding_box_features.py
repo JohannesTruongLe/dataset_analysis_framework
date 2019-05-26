@@ -1,6 +1,4 @@
 """Save bounding box features to disk."""  # TODO describe better what it does
-import argparse
-
 import numpy as np
 import pandas as pd
 from PIL import Image
@@ -8,31 +6,7 @@ import tqdm
 
 from lib.config import Config
 from lib.dataloader.constants import X_MIN, X_MAX, Y_MIN, Y_MAX
-from lib.util import string_to_bool
-
-
-def _parse_args():
-    """Parse inline commands.
-
-    Returns:
-        argparse.Namespace: For details type compute_bounding_box_features.py --help into terminal.
-
-    """
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--config',
-                        help="Path to config file.",
-                        type=str,
-                        default='settings/scripts/compute_bounding_box_features.yaml')
-    parser.add_argument('--verbose',
-                        help="Increase output verbosity.",
-                        required=False,
-                        default='False',
-                        type=str)
-
-    args = parser.parse_args()
-    args.verbose = string_to_bool(args.verbose)
-
-    return args
+from lib.util import configure_logging_verbosity, default_config_parse
 
 
 def save_bounding_box_features(feature_path, image_path, output_path, label_path, inference_list_path):  # TODO Use generators instead of pasing paths
@@ -105,7 +79,8 @@ def _get_bbox_feature(image_size, feature_map, x_min, x_max, y_min, y_max):
 
 def _main():
     """Main script."""
-    args = _parse_args()
+    args = default_config_parse(default_config_path='settings/scripts/compute_bounding_box_features.yaml')
+    configure_logging_verbosity(verbose=args.verbose)
     config = Config.build_from_yaml(args.config)
     save_bounding_box_features(**config.config)
 

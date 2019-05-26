@@ -1,5 +1,4 @@
 """Script to compute hard samples."""  # TODO Better notes
-import argparse
 from pathlib import Path
 
 import numpy as np
@@ -8,31 +7,7 @@ import pandas as pd
 
 from lib.config import Config
 from lib.dataloader.constants import X_MIN, X_MAX, Y_MIN, Y_MAX, CLASS_LIST
-from lib.util import save_cropped_image, string_to_bool
-
-
-def _parse_args():
-    """Parse inline commands.
-
-    Returns:
-        argparse.Namespace: For details type compute_embedded_space.py --help into terminal.
-
-    """
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--config',
-                        help="Path to config file.",
-                        type=str,
-                        default='settings/scripts/compute_hard_samples.yaml')
-    parser.add_argument('--verbose',
-                        help="Increase output verbosity.",
-                        required=False,
-                        default='False',
-                        type=str)
-
-    args = parser.parse_args()
-    args.verbose = string_to_bool(args.verbose)
-
-    return args
+from lib.util import save_cropped_image, configure_logging_verbosity, default_config_parse
 
 
 def save_hard_samples(feature_path, label_path, output_path, image_path, embedded_space_path, n_samples):
@@ -92,10 +67,11 @@ def save_hard_samples(feature_path, label_path, output_path, image_path, embedde
 
 def _main():
     """Main script."""
-    args = _parse_args()
+    args = default_config_parse(default_config_path='settings/scripts/compute_hard_samples.yaml')
+    configure_logging_verbosity(verbose=args.verbose)
     config = Config.build_from_yaml(args.config)
     save_hard_samples(**config.config)
-
+    
 
 if __name__ == '__main__':
     _main()

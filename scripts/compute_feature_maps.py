@@ -1,37 +1,11 @@
 """"This scripts uses an DNN to build feature maps and save them to the disk.""" # TODO refactor parse_args? + BEtter script descrption + Logging
-import argparse
-
 import numpy as np
 import tqdm
 from PIL import Image
 
 from lib.config import Config
 import lib.feature_extractor.resnet as resnet
-from lib.util import string_to_bool, configure_logging_verbosity
-
-
-def _parse_args():
-    """Parse inline commands.
-
-    Returns:
-        argparse.Namespace: For details type compute_feature_maps.py --help into terminal.
-
-    """
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--config',
-                        help="Path to config file.",
-                        type=str,
-                        default='settings/scripts/compute_feature_maps.yaml')
-    parser.add_argument('--verbose',
-                        help="Increase output verbosity.",
-                        required=False,
-                        default='False',
-                        type=str)
-
-    args = parser.parse_args()
-    args.verbose = string_to_bool(args.verbose)
-
-    return args
+from lib.util import configure_logging_verbosity, default_config_parse
 
 
 def save_features(file_list, output_path, model):
@@ -98,7 +72,8 @@ def compute_feature_maps(output_path,
 
 def _main():
     """Main script."""
-    args = _parse_args()
+    args = default_config_parse(default_config_path='settings/scripts/compute_feature_maps.yaml')
+    configure_logging_verbosity(verbose=args.verbose)
     config = Config.build_from_yaml(args.config)
     compute_feature_maps(**config.config)
 

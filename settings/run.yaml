@@ -1,0 +1,46 @@
+# These are the configurations for running the whole tool chain.
+
+image_path: &IMAGE_PATH data/KITTI/image_2/training/image_2
+label_path: &LABEL_PATH data/KITTI/label_2/training/label_2
+df_label_path: &DF_LABEL_PATH data/meta/data.pickle
+inference_list_path: &INFERENCE_LIST_PATH data/meta/inference_list.npy
+seed: &SEED 42
+feature_path: &FEATURE_PATH data/meta/feature_maps
+bounding_box_features_path: &BOUNDING_BOX_FEATURES_PATH data/meta/box_features
+embedded_features_path: &EMBEDDED_FEATURES_PATH data/meta/embedded_data.npy
+output_plot_path: &OUTPUT_PLOT_PATH data/meta/tsne_output.png
+
+save_labels_as_dataframe:
+  image_path:  *IMAGE_PATH
+  label_path:  *LABEL_PATH
+  save_labels_as_dataframe_path: *DF_LABEL_PATH
+plot_class_distribution:
+  label_path: *DF_LABEL_PATH
+  output_path: data/meta/class_distribution.png
+compute_inference_list:
+  label_path: *DF_LABEL_PATH
+  output_path: *INFERENCE_LIST_PATH
+  seed: *SEED
+compute_feature_maps:
+  output_path: *FEATURE_PATH
+  inference_list_path: *INFERENCE_LIST_PATH
+  input_path: *IMAGE_PATH
+  resnet_config_path: settings/feature_extractor/resnet.yaml
+compute_bounding_box_features:
+  feature_path: *FEATURE_PATH
+  image_path: *IMAGE_PATH
+  output_path: *BOUNDING_BOX_FEATURES_PATH
+  label_path: *DF_LABEL_PATH
+  inference_list_path: *INFERENCE_LIST_PATH
+compute_embedded_space:
+  feature_path: *BOUNDING_BOX_FEATURES_PATH
+  label_path: *DF_LABEL_PATH
+  output_path: *EMBEDDED_FEATURES_PATH
+  output_plot_path: *OUTPUT_PLOT_PATH
+compute_hard_samples:
+  feature_path: *BOUNDING_BOX_FEATURES_PATH
+  label_path: *DF_LABEL_PATH
+  output_path: data/meta/hard_samples
+  image_path: *IMAGE_PATH
+  embedded_space_path: *EMBEDDED_FEATURES_PATH
+  n_samples: 1
