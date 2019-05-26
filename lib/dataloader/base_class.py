@@ -52,3 +52,10 @@ class DataLoaderBase(ABC):
         dataframe = pd.concat(dataframe_list)
 
         return dataframe
+
+    def store_labels(self):
+        """Store labels as Data Frame pickle file.
+
+        This is method is not abstract since it is only needed if one wants to store labels.
+        """
+        raise NotImplementedError()

@@ -10,7 +10,6 @@ def configure_logging_verbosity(verbose):
         verbose (bool): True for setting verbosity.
 
     """
-
     if verbose:
         logging.basicConfig(level=logging.DEBUG)
     else:

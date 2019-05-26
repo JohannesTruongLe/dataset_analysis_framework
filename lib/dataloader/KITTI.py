@@ -39,7 +39,6 @@ class KITTIDataLoader(DataLoaderBase):  # TODO BaseClass me
 
         """
         kitti_config = KITTIConfig.build_from_yaml(config_path=config_path)
-
         return cls(**kitti_config.config)
 
     def generate_sample(self):
@@ -47,8 +46,8 @@ class KITTIDataLoader(DataLoaderBase):  # TODO BaseClass me
         # TODO make it raise error if someone wants sth but did not provide path
 
         for file in list(self._label_path.iterdir()):
+            LOGGER.debug("Reading from %s" % file)
             labels_from_one_file = pd.read_csv(file, index_col=None, header=None, names=KITTI_COLS, delimiter=' ')
-
             # Set file name + label position in file as index
             base_name = file.stem
             sample_index = [ base_name + '_' +str(label_idx) for label_idx in range(labels_from_one_file.shape[0])]
