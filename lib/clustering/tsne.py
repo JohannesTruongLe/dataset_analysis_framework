@@ -26,7 +26,6 @@ class TSNE: # TODO BaseClass me
         data_embedded = self._random_state.randn(n_samples, self._n_components)
 
         # Compute
-        print("Calc sim table old")
         neighbour_distances, neighbour_idx = \
             NearestNeighbors(n_neighbors=self._perplexity, metric='euclidean').fit(data).kneighbors(data)
 
