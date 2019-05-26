@@ -1,5 +1,5 @@
-feature_path: C:/workspace/data/meta/feature_maps
-image_path: C:/workspace/data/KITTI/image_2/training/image_2
-output_path: C:/workspace/data/meta/box_features
-label_path: C:/workspace/data/meta/data.pickle
-inference_list_path: C:/workspace/data/meta/inference_list.txt
+feature_path: data/meta/feature_maps
+image_path: data/KITTI/image_2/training/image_2
+output_path: data/meta/box_features
+label_path: data/meta/data.pickle
+inference_list_path: data/meta/inference_list.txt

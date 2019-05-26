@@ -1,4 +1,4 @@
-output_path: C:/workspace/data/meta/feature_maps_test
-inference_list_path: C:/workspace/data/meta/inference_list.txt
-input_path: C:/workspace/data/KITTI/image_2/training/image_2
+output_path: data/meta/feature_maps_test
+inference_list_path: data/meta/inference_list.txt
+input_path: data/KITTI/image_2/training/image_2
 resnet_config_path: settings/feature_extractor/resnet.yaml
