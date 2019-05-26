@@ -1,10 +1,12 @@
 """Mix in implementations."""
-
 from ..config import Config
 
 
 class YAMLBuildMixIn:
+    """YAML Build MixIn class.
 
+    Convenient way of mixing in the build_from_yaml() method into classes.
+    """
     @classmethod
     def build_from_yaml(cls, config_path):
         """Build class instance from YAML.

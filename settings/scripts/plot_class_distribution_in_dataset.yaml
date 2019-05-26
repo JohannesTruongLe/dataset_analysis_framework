@@ -1,3 +1,2 @@
 label_path: data/meta/data.pickle
 output_path: data/meta/class_distribution.png
-
