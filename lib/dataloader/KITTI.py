@@ -1,5 +1,4 @@
-# TODO Doc string me
-
+"""KITTI Data Loader implementation of DataLoaderBase."""
 import logging
 import pandas as pd
 
@@ -10,7 +9,7 @@ from ..dataloader import KITTI_COLS
 LOGGER = logging.getLogger(__name__)
 
 
-class KITTIDataLoader(DataLoaderBase):  # TODO BaseClass me
+class KITTIDataLoader(DataLoaderBase):
     # TODO Docstring that velo not needed
     def __init__(self,
                  image_path,
