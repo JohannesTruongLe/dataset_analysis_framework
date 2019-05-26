@@ -1,0 +1,5 @@
+# KITTI Configuration loaded by lib.config.KITTI
+
+image_path:  "C:/workspace/data/KITTI/image_2/training/image_2"
+label_path:  "C:/workspace/data/KITTI/label_2/training/label_2"
+save_labels_as_dataframe_path: "C:/workspace/data/meta/data.pickle"
