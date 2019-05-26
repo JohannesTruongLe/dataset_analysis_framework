@@ -13,7 +13,7 @@ def _parse_args():
     """Parse inline commands.
 
     Returns:
-        argparse.Namespace: For details type plot_class_distribution_in_dataset.py --help into terminal.
+        argparse.Namespace: For details type compute_inference_list.py --help into terminal.
 
     """
     parser = argparse.ArgumentParser()

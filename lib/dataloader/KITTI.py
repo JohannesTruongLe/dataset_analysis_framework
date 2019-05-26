@@ -2,7 +2,6 @@
 import logging
 import pandas as pd
 
-from ..config import KITTIConfig
 from ..dataloader.base_class import DataLoaderBase
 from ..dataloader import KITTI_COLS
 
@@ -25,20 +24,6 @@ class KITTIDataLoader(DataLoaderBase):
         self._image_path = image_path
         self._label_path = label_path
         self._save_labels_as_dataframe_path = save_labels_as_dataframe_path
-
-    @classmethod
-    def build_from_yaml(cls, config_path):
-        """Build KITTI dataloader from yaml file.
-
-        Args:
-            config_path (str): See config.KITTIConfig.build_from_yaml() for further details.
-
-        Returns:
-            ComponentHandler: ComponentHandler object.
-
-        """
-        kitti_config = KITTIConfig.build_from_yaml(config_path=config_path)
-        return cls(**kitti_config.config)
 
     def generate_sample(self):
         # TODO make this flexible, whether it returns labels or images --> Build into save feature maps script

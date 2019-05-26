@@ -1,4 +1,5 @@
 """Config package."""
 
-from .KITTI import KITTIConfig
+from .dataloader.KITTI import KITTIConfig
+from .feature_extractor.resnet import ResNetConfig
 from .general_config import Config

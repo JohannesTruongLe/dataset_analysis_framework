@@ -6,25 +6,12 @@ import logging
 import pandas as pd
 import tqdm
 
+from ..common import YAMLBuildMixIn
+
 LOGGER = logging.getLogger(__name__)
 
 
-class DataLoaderBase(ABC):
-
-    @classmethod
-    @abstractmethod
-    def build_from_yaml(cls, config_path):
-        """Build dataloader from yaml file.
-
-        Args:
-            TODO Fix me
-
-        Returns:
-            dataloader.common.DataLoaderBase: Return DataLoaderBase instance
-
-        """
-        pass
-
+class DataLoaderBase(ABC, YAMLBuildMixIn):
     @abstractmethod
     def generate_sample(self): #TODO flexible here?
         """Yield sample from dataset.
