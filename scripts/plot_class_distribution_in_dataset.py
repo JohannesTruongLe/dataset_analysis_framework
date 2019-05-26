@@ -1,4 +1,4 @@
-"""Script to analyze the class distribution in a dataset."""
+"""Script to plot the class distribution in a dataset."""
 import logging
 
 import numpy as np

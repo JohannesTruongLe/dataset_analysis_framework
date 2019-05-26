@@ -1,4 +1,13 @@
-"""Save bounding box features to disk."""  # TODO describe better what it does
+"""Save bounding box features to disk.
+
+This script calculates for each entry in inference_list.txt the feature of a bounding box, given the feature maps are
+already calculated. The features will be stores as .npy files to the disk. The location and both latter values are by
+default defined in settings/scripts/compute_bounding_box_features.yaml.
+
+For a more detailed description about the feature maps refer to scripts/build_feature_maps.py docstring.
+For more details for the inference_list.txt, please refer to scripts/compute_inference_list.py docstring.
+
+"""
 import logging
 
 import numpy as np

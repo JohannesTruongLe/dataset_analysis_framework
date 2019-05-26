@@ -1,4 +1,11 @@
-"""Script to compute list to perform inference on.""" # TODO explain better pls
+"""Script to compute list to perform inference on.
+
+This script will output .txt file to the predefined output path (by default defined in 
+settings/scripts/compute_inference_list.yaml). The .txt file will hold a list of samples to perform inference on where
+each row holds one sample with the format of FileName_Idx. For a description of the naming refer to
+scripts/save_labels_as_dataframe.py doc string.
+
+"""
 import logging
 
 import numpy as np

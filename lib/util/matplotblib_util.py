@@ -63,7 +63,7 @@ def save_scatter_plot_with_classes(output_path, types, data, class_color_dict):
     """
     for class_types, color in class_color_dict.items():
         subset = data[types == class_types, :]
-        plt.scatter(subset[:, 0], subset[:, 1], c=color, label=class_types)
+        plt.scatter(subset[:, 0], subset[:, 1], c=color, label=class_types, s=10)
         plt.legend()
     plt.savefig(output_path)
 

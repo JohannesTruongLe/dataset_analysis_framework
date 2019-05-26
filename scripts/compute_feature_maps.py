@@ -1,4 +1,12 @@
-""""This scripts uses an DNN to build feature maps and save them to the disk.""" # TODO BEtter script descrption
+""""This scripts uses an DNN to build feature maps and save them to the disk.
+
+The script will store for each image mentioned in inference_list.txt a feature map to a predefined location. The
+features will be stored as .npy files to the disk. All three values are specified by default in
+settings/scripts/compute_feature_maps.yaml. The DNN used is a ResNet from the
+Tensorflow Object Detection API. To download its weights as a frozen graph, follow this link:
+http://download.tensorflow.org/models/object_detection/faster_rcnn_resnet101_kitti_2018_01_28.tar.gz.
+
+"""
 import logging
 import numpy as np
 import tqdm

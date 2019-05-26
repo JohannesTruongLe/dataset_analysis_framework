@@ -3,7 +3,7 @@
 image_path: &IMAGE_PATH data/KITTI/image_2/training/image_2
 label_path: &LABEL_PATH data/KITTI/label_2/training/label_2
 df_label_path: &DF_LABEL_PATH data/meta/data.pickle
-inference_list_path: &INFERENCE_LIST_PATH data/meta/inference_list.npy
+inference_list_path: &INFERENCE_LIST_PATH data/meta/inference_list.txt
 seed: &SEED 42
 feature_path: &FEATURE_PATH data/meta/feature_maps
 bounding_box_features_path: &BOUNDING_BOX_FEATURES_PATH data/meta/box_features

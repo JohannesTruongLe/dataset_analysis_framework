@@ -1,4 +1,10 @@
-# TODO DOCSTRING ME
+"""Script to compute embedded space of desired data and save to disk.
+
+This script uses TSNE to project some predefined data into 2D. In the end, the 2D data will be plotted. The plot and
+the 2D data (as .npy) will be stored to disk. Input and output data are defined by default in
+settings/scripts/compute_embedded_space.yaml.
+
+"""
 import logging
 
 import tqdm
@@ -60,26 +66,25 @@ def save_embedded_features(feature_path, label_path, output_path, output_plot_pa
     # Normalize data
     data -= np.mean(data)
     data /= np.std(data)
-
     embedded_space = TSNE().fit(data)
     if output_path:
         np.save(output_path, embedded_space)
 
     if output_plot_path:
-        CLASS_COLOR_DICT = {
+        class_color_dict = {
             'Car': 'b',
             'Van': 'g',
             'Truck': 'r',
             'Pedestrian': 'c',
             'Person_sitting': 'm',
-            'Cyclist': 'm',
+            'Cyclist': 'k',
             'Tram': 'y'
         }
 
         save_scatter_plot_with_classes(output_path=output_plot_path,
                                        types=types,
                                        data=embedded_space,
-                                       class_color_dict=CLASS_COLOR_DICT)
+                                       class_color_dict=class_color_dict)
 
 
 def _main():

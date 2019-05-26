@@ -1,4 +1,13 @@
-"""Script to compute hard samples."""  # TODO Better notes
+"""Script to compute hard samples.
+
+This scripts computes difficult samples and saves their crops to the disk. Difficult samples are found as followed:
+
+* The median is calculated for each class.
+* For each median, find the closest samples of other classes. These samples are considered hard.
+
+Input and output locations are defined in settings/scripts/compute_hard_samples.yaml by default.
+
+"""
 from pathlib import Path
 
 import numpy as np

@@ -1,4 +1,12 @@
-"""Save all labels to pickled pandas Data Frame.""" # TODO Better doc string hier oben
+"""Save all labels to pickled pandas Data Frame.
+
+This feature will output a .pickle file to the predefined location in the config
+(default: settings/datalaoder/KITTI.yaml). The pickle file will hold a pandas.DataFrame with size
+[n_bounding_boxes, 15], where n_samples is the total amount of bounding boxes in the KITTI dataset and 15 refers to the
+annotated attributes of each bounding box. The index of each bounding box is FileName_Idx where FileName is the base
+name of the file of the label and Idx is the position in the file.
+
+"""
 import logging
 
 from lib.config import Config
