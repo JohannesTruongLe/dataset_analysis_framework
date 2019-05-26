@@ -17,7 +17,7 @@ LOCATION_Y = 'location_y'
 LOCATION_Z = 'location_z'
 ROTATION_Y = 'rotation_y'
 
-# List of cols in KITTI # TODO make me class attribute
+# List of cols in KITTI
 KITTI_COLS = [TYPE,
               TRUNCATED,
               OCCLUDED,

@@ -1,4 +1,6 @@
 # TODO DOCSTRING ME
+import logging
+
 import tqdm
 import numpy as np
 import pandas as pd
@@ -6,6 +8,8 @@ import pandas as pd
 from lib.manifold.tsne import TSNE
 from lib.config import Config
 from lib.util import save_scatter_plot_with_classes, configure_logging_verbosity, default_config_parse
+
+LOGGER = logging.getLogger(__name__)
 
 
 def _load_data_from_directory(feature_path, type_container=None):
@@ -39,7 +43,7 @@ def _load_data_from_directory(feature_path, type_container=None):
     return output
 
 
-def _save_embedded_features(feature_path, label_path, output_path, output_plot_path):
+def save_embedded_features(feature_path, label_path, output_path, output_plot_path):
     """Perform TSNE and save features.
 
     Args:
@@ -49,6 +53,7 @@ def _save_embedded_features(feature_path, label_path, output_path, output_plot_p
         output_plot_path (str or pathlib.Path or None): Path to save plot to. Does not save if None.
 
     """
+    LOGGER.info("Save embedded features ... ")
     type_container = pd.read_pickle(str(label_path))['type']
     data, types, _ = _load_data_from_directory(feature_path, type_container)
 
@@ -82,7 +87,7 @@ def _main():
     args = default_config_parse(default_config_path='settings/scripts/compute_embedded_space.yaml')
     configure_logging_verbosity(verbose=args.verbose)
     config = Config.build_from_yaml(args.config)
-    _save_embedded_features(**config.config)
+    save_embedded_features(**config.config)
 
 
 if __name__ == '__main__':

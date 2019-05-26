@@ -1,10 +1,14 @@
 """Script to compute list to perform inference on.""" # TODO explain better pls
+import logging
+
 import numpy as np
 import pandas as pd
 
 from lib.config.general_config import Config
-from lib.dataloader.constants import TYPE, CLASS_LIST #TODO Factory for CLass list?
+from lib.dataloader.constants import TYPE, CLASS_LIST
 from lib.util import configure_logging_verbosity, default_config_parse
+
+LOGGER = logging.getLogger(__name__)
 
 
 def compute_inference_list(label_path, output_path, seed=42, verbose=False):
@@ -21,6 +25,7 @@ def compute_inference_list(label_path, output_path, seed=42, verbose=False):
         verbose (True): Set verbosity.
 
     """
+    LOGGER.info("Compute inference list ... ")
     configure_logging_verbosity(verbose=verbose)
     random_state = np.random.RandomState(seed)
     labels = pd.read_pickle(str(label_path))

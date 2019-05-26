@@ -1,4 +1,6 @@
 """Save bounding box features to disk."""  # TODO describe better what it does
+import logging
+
 import numpy as np
 import pandas as pd
 from PIL import Image
@@ -8,8 +10,10 @@ from lib.config import Config
 from lib.dataloader.constants import X_MIN, X_MAX, Y_MIN, Y_MAX
 from lib.util import configure_logging_verbosity, default_config_parse
 
+LOGGER = logging.getLogger(__name__)
 
-def save_bounding_box_features(feature_path, image_path, output_path, label_path, inference_list_path):  # TODO Use generators instead of pasing paths
+
+def save_bounding_box_features(feature_path, image_path, output_path, label_path, inference_list_path):
     """Save features of each bounding box given in inference list to disk.
 
     Each feature saved to disk will have the name of the unique label.
@@ -22,9 +26,11 @@ def save_bounding_box_features(feature_path, image_path, output_path, label_path
         inference_list_path (path or pathlib.Path): Path to inference list.
 
     """
+    LOGGER.info("Save boundinx box features ...")
     labels = pd.read_pickle(str(label_path))
     inference_list = np.loadtxt(str(inference_list_path), dtype=np.str)
-
+    output_path.mkdir(parents=True, exist_ok=True
+                      )
     # Loop through files
     for label_id in tqdm.tqdm(inference_list, desc='Save bounding boxes'):
         base_name = label_id.split('_')[0]

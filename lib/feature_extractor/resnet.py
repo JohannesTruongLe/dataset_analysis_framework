@@ -9,18 +9,23 @@ class ResNet(FeatureExtractorBase):
     """ResNet Feature Extractor."""
 
     def __init__(self,
-                 frozen_graph_path=None,  # TODO download pls
+                 frozen_graph_path=None,
                  input_layer_name='import/image_tensor:0',
                  output_layer_name='import/FirstStageFeatureExtractor/resnet_v1_101/'
                                    'resnet_v1_101/block3/unit_21/bottleneck_v1/add:0'):
         """Init.
 
         Args:
-            frozen_graph_path (str or pathlib.Path or None): Will download graph if None. Elsewise, Path to .pb file.
+            frozen_graph_path (str or pathlib.Path or None): Path to .pb file. If None will give hint from where to
+                download.
             input_layer_name (str): Name of input tensor.
             output_layer_name (str): Name of output tensor.
 
         """
+        assert frozen_graph_path, \
+            'Please download weights from ' \
+            'http://download.tensorflow.org/models/object_detection/faster_rcnn_resnet101_kitti_2018_01_28.tar.gz'
+
         self._input_layer_name = input_layer_name
         self._output_layer_name = output_layer_name
         self._frozen_graph_path = str(frozen_graph_path)

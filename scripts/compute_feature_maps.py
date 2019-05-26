@@ -1,4 +1,5 @@
-""""This scripts uses an DNN to build feature maps and save them to the disk.""" # TODO refactor parse_args? + BEtter script descrption + Logging
+""""This scripts uses an DNN to build feature maps and save them to the disk.""" # TODO BEtter script descrption
+import logging
 import numpy as np
 import tqdm
 from PIL import Image
@@ -7,6 +8,8 @@ from lib.config import Config
 import lib.feature_extractor.resnet as resnet
 from lib.util import configure_logging_verbosity, default_config_parse
 
+LOGGER = logging.getLogger(__name__)
+
 
 def save_features(file_list, output_path, model):
     """Perform inference and save feature to disk.
@@ -14,10 +17,11 @@ def save_features(file_list, output_path, model):
     Args:
         file_list (list(str or pathlib.Path)): List holding absolute paths to images to peform inference on.
         output_path (str or pathlib.Path): Output path to store feature maps in.
-        model (TODO YO WRITE SOMTH HERE): Feature extractor model.
+        model (feature_extractor.FeatureExtractorBase): Feature extractor model.
 
     """
-    for file in tqdm.tqdm(file_list):
+    output_path.mkdir(parents=True, exist_ok=True)
+    for file in tqdm.tqdm(file_list, desc="Compute Features"):
         img = Image.open(file)
         image_np = np.array(img)
         image_np_expanded = np.expand_dims(image_np, axis=0)
@@ -61,10 +65,11 @@ def compute_feature_maps(output_path,
         verbose (bool): Set verbosity.
 
     """
+    LOGGER.info("Compute feature maps ... ")
     configure_logging_verbosity(verbose=verbose)
     label_names = _get_label_names(inference_list_path)
     image_paths = [input_path/(label_name + '.png') for label_name in label_names]
-    model = resnet.ResNet.build_from_yaml(resnet_config_path)  # TODO Factory?
+    model = resnet.ResNet.build_from_yaml(resnet_config_path)
     save_features(file_list=image_paths,
                   output_path=output_path,
                   model=model)

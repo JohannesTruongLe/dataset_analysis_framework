@@ -12,8 +12,10 @@ LOGGER = logging.getLogger(__name__)
 
 
 class DataLoaderBase(ABC, YAMLBuildMixIn):
+    """DataLoaderBase."""
+
     @abstractmethod
-    def generate_sample(self): #TODO flexible here?
+    def generate_sample(self):
         """Yield sample from dataset.
 
 

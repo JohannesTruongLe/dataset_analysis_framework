@@ -1,11 +1,10 @@
 """KITTI Config class."""
-
 from lib.config.base_class import ConfigBase
 
 
 class KITTIConfig(ConfigBase):
+    """KITTIConfig Class implementation."""
 
-    # TODO Json schema
     json_schema = {
         "type": "object",
         "properties": {
@@ -23,4 +22,10 @@ class KITTIConfig(ConfigBase):
     }
 
     def __init__(self, config):
+        """Init.
+
+        Args:
+            config (AttrDict): AttrDict holding the configs in the structure shown in json_schema.
+
+        """
         super().__init__(config)
