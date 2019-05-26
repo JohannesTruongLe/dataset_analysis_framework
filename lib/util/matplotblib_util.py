@@ -46,3 +46,24 @@ def save_bar_chart(data,
                 ha='center', va='bottom')
     LOGGER.debug("Save file ...")
     plt.savefig(output_path)
+
+
+def save_scatter_plot_with_classes(output_path, types, data, class_color_dict):
+    """Saves scatter to disk.
+    
+    Each point needs to have class (which is held in types). Plot each point of a class with the same color.
+
+    Args:
+        output_path (str or pathlib.Path): Path to save figure to
+        types (list(str)): Each entry holds a class. Index must match data rows. 
+        data (numpy.ndarray(numpy.float)):  Data of size [n_samples, 2]
+        class_color_dict (dict): Each key refers to class while the entries refer to the color. 
+
+
+    """
+    for class_types, color in class_color_dict.items():
+        subset = data[types == class_types, :]
+        plt.scatter(subset[:, 0], subset[:, 1], c=color, label=class_types)
+        plt.legend()
+    plt.savefig(output_path)
+

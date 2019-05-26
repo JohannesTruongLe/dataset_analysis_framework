@@ -1,0 +1,4 @@
+feature_path: C:/workspace/data/meta/box_features_trial
+label_path: C:/workspace/data/meta/data.pickle
+output_path: C:/workspace/data/meta/embedded_data
+output_plot_path:  C:/workspace/data/meta/tsne_output.png

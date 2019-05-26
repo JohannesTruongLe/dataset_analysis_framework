@@ -1,0 +1,6 @@
+feature_path: C:/workspace/data/meta/box_features_trial
+label_path: C:/workspace/data/meta/data.pickle
+output_path: C:/workspace/data/meta/hard_samples
+image_path: C:/workspace/data/KITTI/image_2/training/image_2
+embedded_space_path: C:/workspace/data/meta/embedded_data.npy
+n_samples: 10

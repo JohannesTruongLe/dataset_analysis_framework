@@ -53,7 +53,7 @@ class TSNE: # TODO BaseClass me
 
         learning_rate = self._learning_rate
 
-        for iter_idx in tqdm.tqdm(range(self._n_iter)):
+        for iter_idx in tqdm.tqdm(range(self._n_iter), desc="Fit data with TSNE"):
             for first_idx in range(data.shape[0]):
                 sum_value = 0
 
