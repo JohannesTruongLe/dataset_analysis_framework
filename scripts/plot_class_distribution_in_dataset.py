@@ -5,8 +5,10 @@ import numpy as np
 import pandas as pd
 
 from lib.config.general_config import Config
-from lib.dataloader.constants import TYPE, CLASS_LIST
-from lib.util import configure_logging_verbosity, save_bar_chart, default_config_parse
+from lib.dataloader.constants.KITTI import TYPE, CLASS_LIST
+from lib.util.logging_util import configure_logging_verbosity
+from lib.util.matplotblib_util import save_bar_chart
+from lib.util.argparse_util import default_config_parse
 
 LOGGER = logging.getLogger(__name__)
 
@@ -36,7 +38,8 @@ def plot_class_distribution(label_path, output_path):
 
 def _main():
     """Main script."""
-    args = default_config_parse(default_config_path='settings/scripts/plot_class_distribution_in_dataset.yaml')
+    args = default_config_parse(
+        default_config_path='settings/scripts/plot_class_distribution_in_dataset.yaml')
     configure_logging_verbosity(verbose=args.verbose)
     config = Config.build_from_yaml(args.config)
 

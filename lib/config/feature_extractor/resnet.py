@@ -20,12 +20,3 @@ class ResNetConfig(ConfigBase):
         },
         "required": ["frozen_graph_path", "input_layer", "output_layer"]
     }
-
-    def __init__(self, config):
-        """Init.
-        
-        Args:
-            config (AttrDict): AttrDict holding the configs in the structure shown in json_schema.
-     
-        """
-        super().__init__(config)

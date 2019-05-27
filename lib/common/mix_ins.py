@@ -1,5 +1,5 @@
 """Mix in implementations."""
-from ..config import Config
+from lib.config.general_config import Config
 
 
 class YAMLBuildMixIn:

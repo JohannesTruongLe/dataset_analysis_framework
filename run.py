@@ -1,7 +1,8 @@
 """Run whole toolchain.
 
-The toolchain performs TSNE on the dataset and find samples which are hard to classify. This is done by comparing the
-features produced by a ResNet architecture. This is done by extracting objects with features similar to other classes.
+The toolchain performs TSNE on the dataset and find samples which are hard to classify. This is done
+by comparing thefeatures produced by a ResNet architecture. This is done by extracting objects with
+features similar to other classes.
 
 The script does executes following steps:
 
@@ -17,8 +18,9 @@ For details for every single step, pleae refer to the scripts.
 
 """
 
-from lib.config import Config
-from lib.util import default_config_parse, configure_logging_verbosity
+from lib.config.general_config import Config
+from lib.util.argparse_util import default_config_parse
+from lib.util.logging_util import configure_logging_verbosity
 from scripts.save_labels_as_dataframe import save_labels_as_dataframe
 from scripts.plot_class_distribution_in_dataset import plot_class_distribution
 from scripts.compute_inference_list import compute_inference_list

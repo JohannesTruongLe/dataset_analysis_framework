@@ -1,7 +1,7 @@
 """Base Class for Feature Extractors"""
 from abc import ABC, abstractmethod
 
-from ..common import YAMLBuildMixIn
+from lib.common.mix_ins import YAMLBuildMixIn
 
 
 class FeatureExtractorBase(ABC, YAMLBuildMixIn):
@@ -18,4 +18,3 @@ class FeatureExtractorBase(ABC, YAMLBuildMixIn):
             numpy.ndarray(np.float): Output features
 
         """
-        pass

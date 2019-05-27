@@ -1,11 +1,13 @@
 """Save bounding box features to disk.
 
-This script calculates for each entry in inference_list.txt the feature of a bounding box, given the feature maps are
-already calculated. The features will be stores as .npy files to the disk. The location and both latter values are by
-default defined in settings/scripts/compute_bounding_box_features.yaml.
+This script calculates for each entry in inference_list.txt the feature of a bounding box, given the
+feature maps are already calculated. The features will be stores as .npy files to the disk. The
+location and both latter values are by default defined in
+settings/scripts/compute_bounding_box_features.yaml.
 
-For a more detailed description about the feature maps refer to scripts/build_feature_maps.py docstring.
-For more details for the inference_list.txt, please refer to scripts/compute_inference_list.py docstring.
+For a more detailed description about the feature maps refer to scripts/build_feature_maps.py
+docstring. For more details for the inference_list.txt, please refer to
+scripts/compute_inference_list.py docstring.
 
 """
 import logging
@@ -15,14 +17,19 @@ import pandas as pd
 from PIL import Image
 import tqdm
 
-from lib.config import Config
-from lib.dataloader.constants import X_MIN, X_MAX, Y_MIN, Y_MAX
-from lib.util import configure_logging_verbosity, default_config_parse
+from lib.config.general_config import Config
+from lib.dataloader.constants.KITTI import X_MIN, X_MAX, Y_MIN, Y_MAX
+from lib.util.argparse_util import default_config_parse
+from lib.util.logging_util import configure_logging_verbosity
 
 LOGGER = logging.getLogger(__name__)
 
 
-def save_bounding_box_features(feature_path, image_path, output_path, label_path, inference_list_path):
+def save_bounding_box_features(feature_path,
+                               image_path,
+                               output_path,
+                               label_path,
+                               inference_list_path):
     """Save features of each bounding box given in inference list to disk.
 
     Each feature saved to disk will have the name of the unique label.
@@ -68,8 +75,8 @@ def _get_bbox_feature(image_size, feature_map, x_min, x_max, y_min, y_max):
 
     Args:
         image_size (tuple): Size of an image in [x, y].
-        feature_map (numpy.ndarray(numpy.float)): Feature map of size [x, y, n_features] of whole image where the
-            bounding box lies in.
+        feature_map (numpy.ndarray(numpy.float)): Feature map of size [x, y, n_features] of whole
+            image where the bounding box lies in.
         x_min (int): Minimum X coordinate of bounding box.
         x_max (int): Maximum X coordinate of bounding box.
         y_min (int): Minimum Y coordinate of bounding box.
@@ -83,7 +90,8 @@ def _get_bbox_feature(image_size, feature_map, x_min, x_max, y_min, y_max):
 
     bbox_center_orig_images = ((x_min + x_max) / 2,
                                (y_min + y_max) / 2)
-    bbox_center_relative = [center / size for center, size in zip(bbox_center_orig_images, image_size)]
+    bbox_center_relative = [center / size
+                            for center, size in zip(bbox_center_orig_images, image_size)]
 
     bbox_center_feature_map = [int(relative_position * size)
                                for size, relative_position
@@ -94,7 +102,8 @@ def _get_bbox_feature(image_size, feature_map, x_min, x_max, y_min, y_max):
 
 def _main():
     """Main script."""
-    args = default_config_parse(default_config_path='settings/scripts/compute_bounding_box_features.yaml')
+    args = default_config_parse(
+        default_config_path='settings/scripts/compute_bounding_box_features.yaml')
     configure_logging_verbosity(verbose=args.verbose)
     config = Config.build_from_yaml(args.config)
     save_bounding_box_features(**config.config)

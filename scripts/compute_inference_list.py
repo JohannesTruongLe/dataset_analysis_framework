@@ -1,9 +1,9 @@
 """Script to compute list to perform inference on.
 
-This script will output .txt file to the predefined output path (by default defined in 
-settings/scripts/compute_inference_list.yaml). The .txt file will hold a list of samples to perform inference on where
-each row holds one sample with the format of FileName_Idx. For a description of the naming refer to
-scripts/save_labels_as_dataframe.py doc string.
+This script will output .txt file to the predefined output path (by default defined in
+settings/scripts/compute_inference_list.yaml). The .txt file will hold a list of samples to perform
+inference on where each row holds one sample with the format of FileName_Idx. For a description of
+the naming refer to scripts/save_labels_as_dataframe.py doc string.
 
 """
 import logging
@@ -12,8 +12,9 @@ import numpy as np
 import pandas as pd
 
 from lib.config.general_config import Config
-from lib.dataloader.constants import TYPE, CLASS_LIST
-from lib.util import configure_logging_verbosity, default_config_parse
+from lib.dataloader.constants.KITTI import TYPE, CLASS_LIST
+from lib.util.logging_util import configure_logging_verbosity
+from lib.util.argparse_util import default_config_parse
 
 LOGGER = logging.getLogger(__name__)
 
@@ -21,9 +22,10 @@ LOGGER = logging.getLogger(__name__)
 def compute_inference_list(label_path, output_path, seed=42, verbose=False):
     """Compute inference list and save to disk.
 
-    This method will save a .txt file with each column holding an unique identifier for a label. For each class
-    n amount of samples are written to the file. n is equal to the minimum amount of samples for a class. For KITTI,
-    Pedestrian_sitting is the class with the fewest occurrences (222), so for every class 222 samples would be chosen.
+    This method will save a .txt file with each column holding an unique identifier for a label.
+    For each class n amount of samples are written to the file. n is equal to the minimum amount of
+    samples for a class. For KITTI, Pedestrian_sitting is the class with the fewest occurrences
+    (222), so for every class 222 samples would be chosen.
 
     Args:
         label_path (str or pathlib.Path): Path to labels as pickled pandas Data Frame file.
@@ -42,7 +44,7 @@ def compute_inference_list(label_path, output_path, seed=42, verbose=False):
     for class_types in CLASS_LIST:
         n_samples_dict[class_types] = np.sum(labels[TYPE] == class_types)
 
-    # Get from each class the same amount of samples like the class with the smallest number of samples
+    # From each class get the same amount of samples like the class with the fewest n of samples
     min_n = n_samples_dict[min(n_samples_dict, key=n_samples_dict.get)]
     inference_list = []
     for class_types in CLASS_LIST:

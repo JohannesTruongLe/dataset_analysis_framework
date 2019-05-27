@@ -2,7 +2,7 @@
 
 from abc import ABC, abstractmethod
 
-from ..common import YAMLBuildMixIn
+from lib.common.mix_ins import YAMLBuildMixIn
 
 
 class ManifoldBase(ABC, YAMLBuildMixIn):
@@ -16,7 +16,7 @@ class ManifoldBase(ABC, YAMLBuildMixIn):
             data (numpy.ndarray(numpy.float)): Data to fit with shape [n_samples, n_features]
 
         Returns:
-            numpy.ndarray(numpy.float)): Data in embedded space with shape [n_samples, reduced_feature_space]
+            numpy.ndarray(numpy.float)): Data in embedded space with shape
+                [n_samples, reduced_feature_space]
 
         """
-        pass

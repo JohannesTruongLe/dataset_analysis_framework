@@ -20,12 +20,3 @@ class KITTIConfig(ConfigBase):
         },
         "required": ["image_path", "label_path"]
     }
-
-    def __init__(self, config):
-        """Init.
-
-        Args:
-            config (AttrDict): AttrDict holding the configs in the structure shown in json_schema.
-
-        """
-        super().__init__(config)

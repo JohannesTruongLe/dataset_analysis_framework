@@ -16,15 +16,16 @@ class ResNet(FeatureExtractorBase):
         """Init.
 
         Args:
-            frozen_graph_path (str or pathlib.Path or None): Path to .pb file. If None will give hint from where to
-                download.
+            frozen_graph_path (str or pathlib.Path or None): Path to .pb file. If None will give
+                hint from where to download.
             input_layer_name (str): Name of input tensor.
             output_layer_name (str): Name of output tensor.
 
         """
         assert frozen_graph_path, \
             'Please download weights from ' \
-            'http://download.tensorflow.org/models/object_detection/faster_rcnn_resnet101_kitti_2018_01_28.tar.gz'
+            'http://download.tensorflow.org/models/object_detection/' \
+            'faster_rcnn_resnet101_kitti_2018_01_28.tar.gz'
 
         self._input_layer_name = input_layer_name
         self._output_layer_name = output_layer_name

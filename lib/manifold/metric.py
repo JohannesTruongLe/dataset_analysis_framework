@@ -5,8 +5,8 @@ def compute_gaussian_similarity(distance, variance=1):
     """Compute Gaussian similarity
 
     Args:
-        distance (numpy.ndarray(numpy.float)): Distance of shape [n_samples, ] between two points. Can be also used for
-            whole numpy arrays for vectorization.
+        distance (numpy.ndarray(numpy.float)): Distance of shape [n_samples, ] between two points.
+            Can be also used for whole numpy arrays for vectorization.
         variance (float): Variance of Gaussian Distribution.
 
     Returns:

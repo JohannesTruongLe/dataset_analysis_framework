@@ -1,8 +1,8 @@
 """"This scripts uses an DNN to build feature maps and save them to the disk.
 
-The script will store for each image mentioned in inference_list.txt a feature map to a predefined location. The
-features will be stored as .npy files to the disk. All three values are specified by default in
-settings/scripts/compute_feature_maps.yaml. The DNN used is a ResNet from the
+The script will store for each image mentioned in inference_list.txt a feature map to a predefined
+location. Thefeatures will be stored as .npy files to the disk. All three values are specified by
+ default in settings/scripts/compute_feature_maps.yaml. The DNN used is a ResNet from the
 Tensorflow Object Detection API. To download its weights as a frozen graph, follow this link:
 http://download.tensorflow.org/models/object_detection/faster_rcnn_resnet101_kitti_2018_01_28.tar.gz.
 
@@ -12,9 +12,10 @@ import numpy as np
 import tqdm
 from PIL import Image
 
-from lib.config import Config
+from lib.config.general_config import Config
 import lib.feature_extractor.resnet as resnet
-from lib.util import configure_logging_verbosity, default_config_parse
+from lib.util.logging_util import configure_logging_verbosity
+from lib.util.argparse_util import default_config_parse
 
 LOGGER = logging.getLogger(__name__)
 
@@ -23,7 +24,8 @@ def save_features(file_list, output_path, model):
     """Perform inference and save feature to disk.
 
     Args:
-        file_list (list(str or pathlib.Path)): List holding absolute paths to images to peform inference on.
+        file_list (list(str or pathlib.Path)): List holding absolute paths to images to perform
+            inference on.
         output_path (str or pathlib.Path): Output path to store feature maps in.
         model (feature_extractor.FeatureExtractorBase): Feature extractor model.
 

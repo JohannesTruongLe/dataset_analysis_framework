@@ -1,13 +1,13 @@
 """ConfigBase"""
 from abc import ABC, abstractmethod
-import attrdict
-
-import jsonschema
 import logging
 from pathlib import Path
 
-from .constants import PATH
-from ..util import error_util, yaml_util
+import attrdict
+import jsonschema
+
+from lib.config.constants.base_class import PATH
+from lib.util import error_util, yaml_util
 
 LOGGER = logging.getLogger(__name__)
 
@@ -19,7 +19,7 @@ class ConfigBase(ABC):
     @abstractmethod
     # Please define a json schema
     def json_schema(self):
-        pass
+        """Implement json schema."""
 
     def __init__(self, config):
         """Init.

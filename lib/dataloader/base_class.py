@@ -6,7 +6,7 @@ import logging
 import pandas as pd
 import tqdm
 
-from ..common import YAMLBuildMixIn
+from lib.common.mix_ins import YAMLBuildMixIn
 
 LOGGER = logging.getLogger(__name__)
 
@@ -42,8 +42,12 @@ class DataLoaderBase(ABC, YAMLBuildMixIn):
 
         return dataframe
 
-    def store_labels(self):
+    def store_labels(self, output_path=None):
         """Store labels as Data Frame pickle file.
+
+        Args:
+            output_path (str or pathlib.Path or None): Path to store file. If None, take path given
+                during init.
 
         This is method is not abstract since it is only needed if one wants to store labels.
         """

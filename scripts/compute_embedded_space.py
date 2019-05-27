@@ -1,8 +1,8 @@
 """Script to compute embedded space of desired data and save to disk.
 
-This script uses TSNE to project some predefined data into 2D. In the end, the 2D data will be plotted. The plot and
-the 2D data (as .npy) will be stored to disk. Input and output data are defined by default in
-settings/scripts/compute_embedded_space.yaml.
+This script uses TSNE to project some predefined data into 2D. In the end, the 2D data will be
+plotted. The plot and the 2D data (as .npy) will be stored to disk. Input and output data are
+defined by default in settings/scripts/compute_embedded_space.yaml.
 
 """
 import logging
@@ -12,8 +12,10 @@ import numpy as np
 import pandas as pd
 
 from lib.manifold.tsne import TSNE
-from lib.config import Config
-from lib.util import save_scatter_plot_with_classes, configure_logging_verbosity, default_config_parse
+from lib.config.general_config import Config
+from lib.util.matplotblib_util import save_scatter_plot_with_classes
+from lib.util.logging_util import configure_logging_verbosity
+from lib.util.argparse_util import default_config_parse
 
 LOGGER = logging.getLogger(__name__)
 
@@ -23,12 +25,12 @@ def _load_data_from_directory(feature_path, type_container=None):
 
     Args:
         feature_path (Str): Path to bounding box features.
-        type_container (pandas.DataFrame or None): pandas Dataframe holding the types of whole dataset. Index must
-            match the file names in feature_path.
+        type_container (pandas.DataFrame or None): pandas Dataframe holding the types of whole
+            dataset. Index must match the file names in feature_path.
 
     Returns:
         numpy.ndarray(numpy.float): Features of bounding boxes in size [n_samples, n_features]
-        types (str): Class type refering to each sample. Only returned if type_container is not None.
+        types (str): Class type refering to each sample. Only returned if type_container is not None
         identifier (str): Uniqie label identifier. Only returned if type_container is not None.
 
     """
@@ -55,7 +57,8 @@ def save_embedded_features(feature_path, label_path, output_path, output_plot_pa
     Args:
         feature_path (str or pathlib.Path): Path to box features.
         label_path (str or pathlib.Path): Path to pickled pandas Data Frame of labels.
-        output_path (str or pathlib.Path or None): Path to save embedded features to. Does not save if None.
+        output_path (str or pathlib.Path or None): Path to save embedded features to. Does not save
+            if None.
         output_plot_path (str or pathlib.Path or None): Path to save plot to. Does not save if None.
 
     """
